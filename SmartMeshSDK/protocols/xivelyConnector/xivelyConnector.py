@@ -15,7 +15,7 @@ import socket
 import traceback
 import re
 
-import httplib
+import http.client
 
 from   SmartMeshSDK     import FormatUtils
 
@@ -150,7 +150,7 @@ class xivelySubscriber(threading.Thread):
             output += ['\ncall stack:\n']
             output += [traceback.format_exc()]
             output  = '\n'.join(output)
-            print output # critical error
+            print(output) # critical error
             log.critical(output)
             raise
     
@@ -328,7 +328,7 @@ class xivelyClient(object):
     
     def _request(self,method,url,body):
         
-        connection = httplib.HTTPConnection(self.XIVELY_HOST)
+        connection = http.client.HTTPConnection(self.XIVELY_HOST)
         
         try:
             args = {
@@ -346,7 +346,7 @@ class xivelyClient(object):
             if log.isEnabledFor(logging.DEBUG):
                 output      = []
                 output     += ['_request() called with:']
-                for (k,v) in args.items():
+                for (k,v) in list(args.items()):
                     output += ['- {0:<20}: {1}'.format(k,v)]
                 output      = '\n'.join(output)
                 log.debug(output)
@@ -371,7 +371,7 @@ class xivelyClient(object):
                 output       = '\n'.join(output)
                 log.debug(output)
             
-            if response.status not in [httplib.OK,httplib.CREATED]:
+            if response.status not in [http.client.OK,http.client.CREATED]:
                 output = 'response.status={0}'.format(response.status)
                 log.error(output)
                 raise SystemError(output)

@@ -258,7 +258,7 @@ def genFile(apiDefFileName, fileName, classComment):
     
 def main():
     if len(sys.argv) < 3:
-        print "Usage: GenIpMgrSubscribe <apiDefinitionFile> <resultFile> [<comment>]"
+        print("Usage: GenIpMgrSubscribe <apiDefinitionFile> <resultFile> [<comment>]")
         sys.exit(1)
     
     comment = ''

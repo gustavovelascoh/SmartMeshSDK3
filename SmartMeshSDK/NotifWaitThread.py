@@ -2,7 +2,7 @@
 
 import threading
 
-from ApiException import ConnectionError
+from .ApiException import ConnectionError
 
 class NotifWaitThread(threading.Thread):
     

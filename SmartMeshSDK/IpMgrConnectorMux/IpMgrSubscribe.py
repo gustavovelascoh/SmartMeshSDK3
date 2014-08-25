@@ -176,7 +176,7 @@ class IpMgrSubscribe(object):
         #     [0] - subscription mask mask, 
         #     [1] - cb-function. Notification is subscribed if [1]!=None, 
         #     [2] - transport for notification: True - reliable, false - unreliable
-        for cb in self._callback.values() :
+        for cb in list(self._callback.values()) :
             if cb[1] :
                 mask = mask | cb[0]
             if cb[2] == False :

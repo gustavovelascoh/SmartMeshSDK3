@@ -4,7 +4,7 @@ import struct
 import operator
 import types
 
-import ApiDefinition
+from . import ApiDefinition
 from   SmartMeshSDK.ApiException import CommandError
 from   SmartMeshSDK import FormatUtils
 
@@ -38,7 +38,7 @@ class ByteArraySerializer(object):
             log.debug(output)
         
         # validate input
-        if type(commandArray)!=types.ListType and type(commandArray)!=types.TupleType:
+        if type(commandArray)!=list and type(commandArray)!=tuple:
             raise TypeError("First parameter should be a list or tuple, not "+str(type(commandArray)))
         
         # initialize the output
@@ -75,7 +75,7 @@ class ByteArraySerializer(object):
                         thisFieldByteArray.append(val)
                     
                     elif field.format==ApiDefinition.FieldFormats.INT:
-                        thisFieldByteArray      += [operator.mod(int(val>>(8*i)), 0x100) for i in xrange(field.length-1, -1, -1)]
+                        thisFieldByteArray      += [operator.mod(int(val>>(8*i)), 0x100) for i in range(field.length-1, -1, -1)]
                     
                     elif field.format==ApiDefinition.FieldFormats.INTS:
                         if   field.length==1:

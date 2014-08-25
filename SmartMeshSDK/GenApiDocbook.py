@@ -2,12 +2,12 @@ import sys
 import os
 sys.path.insert(0, os.path.join(sys.path[0], '..'))
 
-from   ApiDefinition.IpMgrDefinition    import IpMgrDefinition
-from   ApiDefinition.IpMoteDefinition   import IpMoteDefinition
+from   .ApiDefinition.IpMgrDefinition    import IpMgrDefinition
+from   .ApiDefinition.IpMoteDefinition   import IpMoteDefinition
 #from   ApiDefinition.HartMgrDefinition  import HartMgrDefinition
 #from   ApiDefinition.HartMoteDefinition import HartMoteDefinition
 
-import ApiException
+from . import ApiException
 
 #============================ templates =======================================
 

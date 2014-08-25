@@ -494,7 +494,7 @@ def genFile(srcFileName, dstFileName, comment):
         
 def main() :
     if len(sys.argv) < 3:
-        print "Usage: GenApiConnectors <apiDefinitionFile> <resultFile> [<comment>]"
+        print("Usage: GenApiConnectors <apiDefinitionFile> <resultFile> [<comment>]")
         return 1
     
     comment = ''

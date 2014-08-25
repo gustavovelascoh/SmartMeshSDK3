@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
-import ApiDefinition
-import ByteArraySerializer
+from . import ApiDefinition
+from . import ByteArraySerializer
 
 class HartMoteDefinition(ApiDefinition.ApiDefinition):
     '''

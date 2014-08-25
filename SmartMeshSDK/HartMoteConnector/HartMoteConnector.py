@@ -4,7 +4,7 @@ This module was generated automatically. Do not edit directly.
 
 import collections
 from   SmartMeshSDK import ApiException
-from   HartMoteConnectorInternal import HartMoteConnectorInternal
+from   .HartMoteConnectorInternal import HartMoteConnectorInternal
 
 ##
 # \addtogroup HartMoteConnector

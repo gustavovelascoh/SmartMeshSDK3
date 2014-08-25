@@ -1,4 +1,4 @@
-import OAPMessage
+from . import OAPMessage
 import struct
 import datetime
 from   array import array

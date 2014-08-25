@@ -4,7 +4,7 @@ This module was generated automatically. Do not edit directly.
 
 import collections
 from   SmartMeshSDK import ApiException
-from   IpMgrConnectorSerialInternal import IpMgrConnectorSerialInternal
+from   .IpMgrConnectorSerialInternal import IpMgrConnectorSerialInternal
 
 ##
 # \addtogroup IpMgrConnectorSerial

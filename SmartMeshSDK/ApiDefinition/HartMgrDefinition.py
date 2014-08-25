@@ -1,8 +1,8 @@
 '''API Definition for HART Manager XML API'''
 
-import ApiDefinition
+from . import ApiDefinition
 
-import xmlutils
+from . import xmlutils
 import re
 
 # Add a log handler for the HART Manager
@@ -660,7 +660,7 @@ class HartMgrDefinition(ApiDefinition.ApiDefinition):
         
         event_name = ['event']
         event_dict = {}
-        for event_attr, val in obj_dict.items():
+        for event_attr, val in list(obj_dict.items()):
             if type(val) is dict:
                 event_name += [self.subcommandIdToName(self.NOTIFICATION, event_name, event_attr)]
                 subevent_fields = self.getResponseFields(self.NOTIFICATION, event_name)
@@ -674,7 +674,7 @@ class HartMgrDefinition(ApiDefinition.ApiDefinition):
     def parse_notif(self, notif_name, notif_str):
         notif_metadata = self.getDefinition(self.NOTIFICATION, notif_name)
         notif_fields = self.getResponseFields(self.NOTIFICATION, notif_name)
-        if notif_metadata.has_key('deserializer'):
+        if 'deserializer' in notif_metadata:
             deserialize_func = getattr(self, notif_metadata['deserializer'])
             notif_name, notif_dict = deserialize_func(notif_str, notif_fields)
         else:
@@ -750,7 +750,7 @@ class HartMgrDefinition(ApiDefinition.ApiDefinition):
         resp = {}
         #resp = {'_raw_': xmlrpc_resp}
         resp_fields = self.getResponseFields(self.COMMAND, [cmd_metadata['name']])
-        if cmd_metadata['response'].has_key(self.FIELDS):
+        if self.FIELDS in cmd_metadata['response']:
             # unnamed fields are processed in order
             # note: special case the single return value
             if len(resp_fields) is 1:
@@ -762,7 +762,7 @@ class HartMgrDefinition(ApiDefinition.ApiDefinition):
         elif cmd_metadata['id'] in ['getConfig', 'setConfig'] :
             # default getConfig parser
             # TODO: need an ApiDefinition method to get the response object name
-            resp_obj = cmd_metadata['response'].keys()[0]
+            resp_obj = list(cmd_metadata['response'].keys())[0]
             isArray = False
             if ('isResponseArray' in cmd_metadata) :
                 isArray = cmd_metadata['isResponseArray']
@@ -777,7 +777,7 @@ class HartMgrDefinition(ApiDefinition.ApiDefinition):
                  which contains each of the fields of the response. 
         '''
         cmd_metadata = self.getDefinition(self.COMMAND, cmd_name)
-        if cmd_metadata.has_key('deserializer'):
+        if 'deserializer' in cmd_metadata:
             deserializer = getattr(self, cmd_metadata['deserializer'])
         else:
             deserializer = self.default_deserializer

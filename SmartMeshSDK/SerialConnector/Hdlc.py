@@ -4,7 +4,7 @@ import sys
 import threading
 import traceback
 
-import Crc
+from . import Crc
 
 
 from SmartMeshSDK.ApiException import ConnectionError, \
@@ -17,7 +17,7 @@ except ImportError:
     output += 'Could not load the serial module.\n'
     output += 'Please install PySerial from http://pyserial.sourceforge.net/,'
     output += 'then run this script again.\n'
-    raw_input(output)
+    input(output)
     sys.exit()
 
 import logging
@@ -148,11 +148,11 @@ class Hdlc(threading.Thread):
                                 except (ConnectionError,CommandError) as err:
                                     output = "@Hdlc: {0}".format(err)
                                     log.error(output)
-                                    print output
+                                    print(output)
                         else:
                             output = "@Hdlc: received hdlc frame too short"
                             log.error(output)
-                            print output
+                            print(output)
                         self._restart()
                     
                     # remember the last byte I received
@@ -169,7 +169,7 @@ class Hdlc(threading.Thread):
             output += ['\ncall stack:\n']
             output += [traceback.format_exc()]
             output  = '\n'.join(output)
-            print output # critical error
+            print(output) # critical error
             log.critical(output)
             raise
         
@@ -244,7 +244,7 @@ class Hdlc(threading.Thread):
         try:        
             with self.busySending:
                 numWritten   = self.pyserialHandler.write(byteArray)
-        except IOError, e:
+        except IOError as e:
             raise ConnectionError(str(e))
 
         if numWritten!=len(packetBytes):
