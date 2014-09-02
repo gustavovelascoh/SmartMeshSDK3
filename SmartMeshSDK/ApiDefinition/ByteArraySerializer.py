@@ -96,8 +96,12 @@ class ByteArraySerializer(object):
                         raise SystemError('unknown field format='+field.format)
                     
                     # padding
-                    while len(thisFieldByteArray)<field.length:
-                        thisFieldByteArray  = [0x00]+thisFieldByteArray
+                    if (field.length is None):
+                        while len(thisFieldByteArray)< 0:
+                            thisFieldByteArray  = [0x00]+thisFieldByteArray
+                    else:
+                        while len(thisFieldByteArray)<field.length:
+                            thisFieldByteArray  = [0x00]+thisFieldByteArray
                 
                 byteArray = byteArray+thisFieldByteArray
         
