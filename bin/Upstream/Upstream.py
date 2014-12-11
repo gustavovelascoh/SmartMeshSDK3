@@ -364,7 +364,7 @@ class MoteClient(threading.Thread):
             # not the right service, next step is JOINED
             
             # change state
-            self.states.switchActiveState('CONFIGURE')
+            self.states.switchActiveState('JOINED')
             
             # kick the FSM
             self._kickFsm()

@@ -247,7 +247,7 @@ def parse_oap_response(pkt, index = 0):
 
 def read_bits(data, bit_index, bit_length):
     """Read 'bit_length' bits starting at 'bit_index' from byte array 'data'"""
-    byte_offset = bit_index / 8;
+    byte_offset = int(bit_index / 8);
     bit_remainder = bit_index % 8;
     result = 0;
 
