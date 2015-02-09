@@ -191,10 +191,15 @@ class ByteArraySerializer(object):
                             thisFieldValue += thisFieldArray[i]*pow(2,8*(len(thisFieldArray)-i-1))
                     
                     elif fieldDef.format==ApiDefinition.FieldFormats.INTS:
+                        log.debug("thisFieldArray: %s", thisFieldArray)
                         tempList = [chr(i) for i in thisFieldArray]
                         tempString = ''.join(tempList)
                         if   len(thisFieldArray)==1:
-                            (thisFieldValue,) = struct.unpack_from('>b',tempString)
+                            log.debug("tempString: %s", tempString)
+                            # Original Line
+                            #(thisFieldValue,) = struct.unpack_from('>b',tempString)
+                            # Modified for Python 3.x
+                            (thisFieldValue,) = struct.unpack_from('>b',bytes(tempString,'utf-8'))
                         elif len(thisFieldArray)==2:
                             (thisFieldValue,) = struct.unpack_from('>h',tempString)
                         elif len(thisFieldArray)==4:
